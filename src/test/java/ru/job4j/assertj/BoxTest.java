@@ -35,11 +35,12 @@ class BoxTest {
     void checkAreaOfSphere() {
         Box box = new Box(0, 2);
         double area = box.getArea();
-        double area1 = Math.ceil(area);
-        assertThat(area1).isEqualTo(51D)
+        assertThat(area).isEqualTo(50.265d, withPrecision(0.01d))
+                .isCloseTo(50.265d, withPrecision(0.1d))
                 .isPositive()
                 .isNotNegative()
-                .isGreaterThan(50D);
+                .isGreaterThan(50D)
+                .isLessThan(51D);
     }
 
     @Test
@@ -75,11 +76,11 @@ class BoxTest {
     void checkAreaOfTetrahedron() {
         Box box = new Box(4, 2);
         double area = box.getArea();
-        double area1 = Math.ceil(area);
-        assertThat(area1).isEqualTo(7D)
+        assertThat(area).isEqualTo(6.9D, withPrecision(0.1D))
                 .isPositive()
                 .isNotNegative()
-                .isGreaterThan(6D);
+                .isGreaterThan(6D)
+                .isLessThan(7D);
     }
 
     @Test
@@ -114,9 +115,10 @@ class BoxTest {
     @Test
     void checkAreaOfCube() {
         Box box = new Box(8, 6);
-        double area = Math.ceil(box.getArea());
-        assertThat(area).isPositive()
-                .isNotNegative()
-                .isEqualTo(216D);
+        double area = box.getArea();
+        assertThat(area).isEqualTo(216D, withPrecision(0.01d))
+                .isPositive()
+                .isNotNegative();
+
     }
 }
