@@ -24,7 +24,7 @@ public class NonNullIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        if(!hasNext()) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return data[index++];
