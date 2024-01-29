@@ -14,13 +14,10 @@ public class CyclicIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        if (data.isEmpty()) {
-            return false;
-        }
         if (cursor == data.size()) {
             cursor = 0;
         }
-        return true;
+        return !data.isEmpty();
     }
 
     @Override
