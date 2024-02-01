@@ -15,31 +15,30 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public void add(T value) {
         if (size == container.length) {
-            container = grow();
-        }
-        if (container.length == 0) {
-            container = (T[]) new Object[1];
+            grow();
         }
         container[size++] = value;
         modCount++;
     }
 
-    private T[] grow() {
-        return Arrays.copyOf(container, container.length * 2);
+    void grow() {
+        if (container.length == 0) {
+            container = (T[]) new Object[1];
+        } else {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
     }
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T removedValue = container[index];
+        T removedValue = get(index);
         System.arraycopy(container, index + 1,
                 container, index, container.length - index - 1);
         size--;
@@ -60,7 +59,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             int cursor = 0;
             int expectedModCount = modCount;
             @Override
