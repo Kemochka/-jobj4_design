@@ -29,6 +29,7 @@ class ForwardLinkedTest {
     @Test
     void checkAddFirst() {
         list.addFirst(0);
+        assertThat(list).containsExactly(0, 1, 2);
         assertThat(list).hasSize(3);
     }
 
