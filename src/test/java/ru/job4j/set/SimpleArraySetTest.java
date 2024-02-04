@@ -51,6 +51,5 @@ class SimpleArraySetTest {
         assertThat(iterator.next()).isEqualTo(1);
         assertThat(iterator.hasNext()).isTrue();
         assertThat(iterator.next()).isEqualTo(2);
-
     }
 }

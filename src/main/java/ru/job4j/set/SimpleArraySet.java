@@ -18,10 +18,11 @@ public class SimpleArraySet<T> implements SimpleSet<T> {
 
     @Override
     public boolean contains(T value) {
-        for (T item : set)
+        for (T item : set) {
             if (Objects.equals(item, value)) {
                 return true;
             }
+        }
         return false;
     }
 
