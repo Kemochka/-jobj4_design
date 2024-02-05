@@ -16,12 +16,14 @@ public class SimpleArraySet<T> implements SimpleSet<T> {
 
     @Override
     public boolean contains(T value) {
+        boolean result = false;
         for (T item : set) {
             if (Objects.equals(item, value)) {
-                return true;
+                result = true;
+                break;
             }
         }
-        return false;
+        return result;
     }
 
     @Override
