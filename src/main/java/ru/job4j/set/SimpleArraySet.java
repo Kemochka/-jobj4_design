@@ -9,11 +9,9 @@ public class SimpleArraySet<T> implements SimpleSet<T> {
 
     @Override
     public boolean add(T value) {
-        if (!contains(value)) {
+        boolean result = !contains(value);
             set.add(value);
-            return true;
-        }
-        return false;
+            return result;
     }
 
     @Override
