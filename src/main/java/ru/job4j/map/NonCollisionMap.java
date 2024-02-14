@@ -39,7 +39,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     private void expand() {
         MapEntry<K, V>[] newTable = new MapEntry[capacity * 2];
-        capacity *=2;
+        capacity *= 2;
         for (MapEntry<K, V> entry : table) {
             if (entry != null) {
                 int index = indexFor(hash(Objects.hashCode(entry.key)));
