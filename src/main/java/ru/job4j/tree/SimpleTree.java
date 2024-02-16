@@ -34,7 +34,6 @@ public class SimpleTree<E> implements Tree<E> {
         return findByPredicate(condition);
     }
 
-
     private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
         Optional<Node<E>> result = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
