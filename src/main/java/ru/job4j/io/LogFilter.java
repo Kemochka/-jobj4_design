@@ -3,6 +3,7 @@ package ru.job4j.io;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LogFilter {
     private final String file;
@@ -15,7 +16,10 @@ public class LogFilter {
         List<String> lines = new ArrayList<>();
         try (BufferedReader input = new BufferedReader(new FileReader(file))) {
             input.lines()
-                    .filter(str -> str.contains(" 404 "))
+                    .filter(str -> {
+                        String[] words = str.split(" ");
+                        return Objects.equals(words[words.length - 2], "404");
+                    })
                     .forEach(lines::add);
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,7 +33,9 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(out)
                 ))) {
-            output.println(data);
+            for (String line : data) {
+                output.println(line);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
