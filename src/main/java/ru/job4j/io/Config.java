@@ -25,8 +25,7 @@ public class Config {
                         if (line.startsWith("=")
                                 || parts[0].endsWith("=")
                                 || !line.contains("=")) {
-                            throw new IllegalArgumentException
-                                    ("File contains lines that do not match the key=value pattern");
+                            throw new IllegalArgumentException("File contains lines that do not match the key=value pattern");
                         }
                     });
         } catch (IOException e) {
