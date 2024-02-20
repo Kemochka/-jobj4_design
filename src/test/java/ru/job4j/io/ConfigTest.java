@@ -31,4 +31,20 @@ class ConfigTest {
         assertThat(config.value("key1")).isEqualTo("value1=1");
         assertThat(config.value("key2")).isEqualTo("value=");
     }
+
+    @Test
+    void whenFileWithSpecialCharInValue() {
+        String path = "./data/test2.properties";
+        Config config = new Config(path);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, config::load);
+        assertThat(exception.getMessage()).isEqualTo("File contains lines that do not match the key=value pattern");
+    }
+
+    @Test
+    void whenFileWithoutSpecialCharInPair() {
+        String path = "./data/test3.properties";
+        Config config = new Config(path);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, config::load);
+        assertThat(exception.getMessage()).isEqualTo("File contains lines that do not match the key=value pattern");
+    }
 }

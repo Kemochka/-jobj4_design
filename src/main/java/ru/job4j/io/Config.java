@@ -24,6 +24,7 @@ public class Config {
                         values.put(parts[0], parts[1]);
                         if (line.startsWith("=")
                                 || parts[0].endsWith("=")
+                                || parts[1].isEmpty()
                                 || !line.contains("=")) {
                             throw new IllegalArgumentException("File contains lines that do not match the key=value pattern");
                         }
