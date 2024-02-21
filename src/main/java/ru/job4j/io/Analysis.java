@@ -14,7 +14,7 @@ public class Analysis {
                 if ((line.contains("400") || line.contains("500")) && start == null) {
                     start = words[1];
                 }
-                if ((line.contains("200") || line.contains("300")) && start!= null) {
+                if ((line.contains("200") || line.contains("300")) && start != null) {
                     end = words[1];
                     writer.print(start + ";" + end + ";");
                     start = null;
