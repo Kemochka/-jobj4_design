@@ -16,7 +16,7 @@ public class Analysis {
                 }
                 if ((line.contains("200") || line.contains("300")) && start != null) {
                     end = words[1];
-                    writer.print(start + ";" + end + ";");
+                    writer.printf("%s%s%s%s", start, ";",  end, ";");
                     start = null;
                     writer.print(System.lineSeparator());
                 }
@@ -25,8 +25,4 @@ public class Analysis {
             e.printStackTrace();
         }
     }
-    /*public static void main(String[] args) {
-        Analysis analysis = new Analysis();
-        analysis.unavailable("data/server.log", "data/target.csv");
-    }*/
 }
