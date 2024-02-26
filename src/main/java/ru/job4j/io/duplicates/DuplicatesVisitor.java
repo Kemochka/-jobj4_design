@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     private Map<FileProperty, Path> files = new HashMap<>();
@@ -22,7 +23,9 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         return super.visitFile(file, attrs);
     }
 
-    public List<FileProperty> getDuplicates() {
-        return dup;
+    public List<Path> getDuplicates() {
+        return dup.stream()
+                .map(fileProperty -> files.get(fileProperty))
+                .collect(Collectors.toList());
     }
 }
