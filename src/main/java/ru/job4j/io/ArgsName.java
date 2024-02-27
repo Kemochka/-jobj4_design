@@ -2,9 +2,6 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
@@ -18,29 +15,27 @@ public class ArgsName {
 
     private void parse(String[] args) throws IllegalArgumentException {
         for (String arg : args) {
-            Pattern pattern = Pattern.compile("-([\\w?]+)=(.*)");
-            Matcher matcher = getMatcher(arg, pattern);
-            String key = matcher.group(1);
-            String value = matcher.group(2);
-                if (value.isEmpty()) {
+            getValid(arg);
+            String[] parts = arg.split("=", 2);
+            String key = parts[0].substring(1);
+            String value = parts[1];
+            if (value.isEmpty()) {
                 throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a value");
+            }
+            if (key.isEmpty()) {
+                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
             }
             values.put(key, value);
         }
     }
 
-    private static Matcher getMatcher(String arg, Pattern pattern) {
-        Matcher matcher = pattern.matcher(arg);
+    private void getValid(String arg) {
         if (!arg.contains("=")) {
             throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
         }
         if (!arg.startsWith("-")) {
             throw new IllegalArgumentException("Error: This argument '" + arg + "' does not start with a '-' character");
         }
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
-        }
-        return matcher;
     }
 
     public static ArgsName of(String[] args) {
