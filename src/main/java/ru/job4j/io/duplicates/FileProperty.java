@@ -1,7 +1,6 @@
 package ru.job4j.io.duplicates;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public class FileProperty {
     private long size;
@@ -31,10 +30,11 @@ public class FileProperty {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "Дупликаты найдены" + " ", " ")
-                .add("по пути: '" + name + "'")
-                .add(" размер файла " + size + "Kb")
-                .toString();
+        return "FileProperty{"
+                + "size=" + size
+                + ", name='" + name
+                + '\''
+                + '}';
     }
 
     @Override
