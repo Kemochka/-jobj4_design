@@ -25,7 +25,10 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
-        if (!args[0].contains(".") || !args[1].contains(".txt")) {
+        if (!Files.exists(Paths.get(args[0]))) {
+            throw new IllegalArgumentException("Incorrect parameters");
+        }
+        if (!args[1].startsWith(".")) {
             throw new IllegalArgumentException("Incorrect parameters");
         }
     }
