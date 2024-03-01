@@ -34,12 +34,31 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) {
+    private static void validParameters(String[] args) {
         ArgsName argsName = ArgsName.of(args);
         String directory = argsName.get("d");
         String exclude = argsName.get("e");
         String output = argsName.get("o");
+        if (directory == null || exclude == null || output == null) {
+            throw new IllegalArgumentException("Missing required arguments");
+        }
+        File dir = new File(directory);
+        if (!dir.exists()) {
+            throw new IllegalArgumentException("Directory does not exist");
+        }
+        if (!exclude.startsWith(".")) {
+            throw new IllegalArgumentException("Exclusion extension should start with a dot (e.g. .txt)");
+        }
+        if (!output.endsWith(".zip")) {
+            throw new IllegalArgumentException("Output file should have .zip extension");
+        }
+    }
+
+    public static void main(String[] args) {
         validParameters(args);
+        String directory = args[0].replace("-d=", "");
+        String exclude = args[1].replace("-e", "");
+        String output = args[2].replace("-o=", "");
         SearchFiles search = new SearchFiles(p -> !p.toFile().getName().endsWith(exclude));
         try {
             Files.walkFileTree(Paths.get(directory), search);
@@ -54,25 +73,6 @@ public class Zip {
                 new File("./pom.xml"),
                 new File("./pom.zip")
         );
-    }
-
-    private static void validParameters(String[] args) {
-        String directory = args[0];
-        String exclude = args[1];
-        String output = args[2];
-        if (directory == null || exclude == null || output == null) {
-            throw new IllegalArgumentException("Missing required arguments");
-        }
-        File dir = new File(directory);
-        if (dir.exists()) {
-            throw new IllegalArgumentException("Directory does not exist");
-        }
-        if (exclude.startsWith(".")) {
-            throw new IllegalArgumentException("Exclusion extension should start with a dot (e.g. .txt)");
-        }
-        if (!output.endsWith(".zip")) {
-            throw new IllegalArgumentException("Output file should have .zip extension");
-        }
     }
 }
 
