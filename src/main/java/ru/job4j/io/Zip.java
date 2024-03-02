@@ -39,9 +39,6 @@ public class Zip {
         String directory = argsName.get("d");
         String exclude = argsName.get("e");
         String output = argsName.get("o");
-        if (directory == null || exclude == null || output == null) {
-            throw new IllegalArgumentException("Missing required arguments");
-        }
         File dir = new File(directory);
         if (!dir.exists()) {
             throw new IllegalArgumentException("Directory does not exist");
@@ -56,9 +53,9 @@ public class Zip {
 
     public static void main(String[] args) {
         validParameters(args);
-        String directory = args[0].replace("-d=", "");
-        String exclude = args[1].replace("-e", "");
-        String output = args[2].replace("-o=", "");
+        String directory = ArgsName.of(args).get("d");
+        String exclude = ArgsName.of(args).get("e");
+        String output = ArgsName.of(args).get("o");
         SearchFiles search = new SearchFiles(p -> !p.toFile().getName().endsWith(exclude));
         try {
             Files.walkFileTree(Paths.get(directory), search);
