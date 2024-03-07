@@ -8,10 +8,11 @@ public record Contact(int zipCode, String phone) implements Serializable {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "zipCode=" + zipCode +
-                ", phone='" + phone + '\'' +
-                '}';
+        return "Contact{"
+                + "zipCode=" + zipCode
+                + ", phone='" + phone
+                + '\''
+                + '}';
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
