@@ -2,9 +2,24 @@ package ru.job4j.serialization;
 
 import java.io.*;
 
-public record Contact(int zipCode, String phone) implements Serializable {
+public final class Contact implements Serializable {
     @Serial
     private static final long serialVersionUID = 340784786541522499L;
+    private final int zipCode;
+    private final String phone;
+
+    public Contact(int zipCode, String phone) {
+        this.zipCode = zipCode;
+        this.phone = phone;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 
     @Override
     public String toString() {
