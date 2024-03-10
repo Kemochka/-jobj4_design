@@ -1,27 +1,32 @@
 package ru.job4j.serialization;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 public class Json {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException {
         JsonCar jsonCar = new JsonCar(false, 5, "Toyota",
-                new Contact(5, "11-111"), new String[]{"Personal, Family"});
-        final Gson gson = new GsonBuilder().create();
-        System.out.println(gson.toJson(jsonCar));
-        final String carJson =
-                "{"
-                        + "\"trailer\":false,"
-                        + "\"seats\":2,"
-                        + "\"model\":Bentley,"
-                        + "\"contact\":"
-                        + "{"
-                        + "\"phone\":\"+7(924)-222-12-12\""
-                        + "},"
-                        + "\"statuses\":"
-                        + "[\"Personal\",\"Free\"]"
-                        + "}";
-        final JsonCar jsonCar1 = gson.fromJson(carJson, JsonCar.class);
-        System.out.println(jsonCar1);
+                new Contact("11-111"), new String[]{"Personal, Family"});
+        JAXBContext context = JAXBContext.newInstance(JsonCar.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        String xml = "";
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(jsonCar, writer);
+            xml = writer.getBuffer().toString();
+            System.out.println(xml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        try (StringReader reader = new StringReader(xml)) {
+            JsonCar result = (JsonCar) unmarshaller.unmarshal(reader);
+            System.out.println(result);
+        }
     }
 }

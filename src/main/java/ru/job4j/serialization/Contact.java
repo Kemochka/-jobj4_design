@@ -1,37 +1,33 @@
 package ru.job4j.serialization;
 
 import java.io.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "contact")
 public final class Contact implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 340784786541522499L;
-    private final int zipCode;
-    private final String phone;
+    private static long serialVersionUID = 340784786541522499L;
 
-    public Contact(int zipCode, String phone) {
-        this.zipCode = zipCode;
+    @XmlAttribute
+    private String phone;
+
+    public Contact() {
+    }
+
+    public Contact(String phone) {
         this.phone = phone;
-    }
-
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     @Override
     public String toString() {
         return "Contact{"
-                + "zipCode=" + zipCode
-                + ", phone='" + phone
+                + "phone='" + phone
                 + '\''
                 + '}';
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        final Contact contact = new Contact(123456, "+7 (111) 111-11-11");
+        final Contact contact = new Contact("+7 (111) 111-11-11");
         try (FileOutputStream fos = new FileOutputStream("data/contactSerialization.txt");
              ObjectOutputStream oos =
                      new ObjectOutputStream(fos)) {
