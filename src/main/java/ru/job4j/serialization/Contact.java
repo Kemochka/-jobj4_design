@@ -1,39 +1,46 @@
 package ru.job4j.serialization;
 
 import java.io.*;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.nio.file.Files;
 
-@XmlRootElement(name = "contact")
 public final class Contact implements Serializable {
-    private static long serialVersionUID = 340784786541522499L;
+    @Serial
+    private static final long serialVersionUID = 340784786541522499L;
+    private final int zipCode;
+    private final String phone;
 
-    @XmlAttribute
-    private String phone;
-
-    public Contact() {
+    public Contact(int zipCode, String phone) {
+        this.zipCode = zipCode;
+        this.phone = phone;
     }
 
-    public Contact(String phone) {
-        this.phone = phone;
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     @Override
     public String toString() {
         return "Contact{"
-                + "phone='" + phone
-                + '\''
+                + "zipCode=" + zipCode
+                + ", phone='" + phone + '\''
                 + '}';
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        final Contact contact = new Contact("+7 (111) 111-11-11");
-        try (FileOutputStream fos = new FileOutputStream("data/contactSerialization.txt");
+        final Contact contact = new Contact(123456, "+7 (111) 111-11-11");
+
+        File tempFile = Files.createTempFile(null, null).toFile();
+        try (FileOutputStream fos = new FileOutputStream(tempFile);
              ObjectOutputStream oos =
                      new ObjectOutputStream(fos)) {
             oos.writeObject(contact);
         }
-        try (FileInputStream fis = new FileInputStream("data/contactSerialization.txt");
+
+        try (FileInputStream fis = new FileInputStream(tempFile);
              ObjectInputStream ois =
                      new ObjectInputStream(fis)) {
             final Contact contactFromFile = (Contact) ois.readObject();

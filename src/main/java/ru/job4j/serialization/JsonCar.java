@@ -1,24 +1,19 @@
 package ru.job4j.serialization;
 
-import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
-@XmlRootElement(name = "car")
 public class JsonCar {
-    @XmlElement
-    private boolean trailer;
-    @XmlAttribute
-    private int seats;
-    @XmlAttribute
-    private String model;
-    @XmlElement
-    private Contact contact;
-    @XmlElement
-    private String[] statuses;
 
-    public JsonCar() {
+    private final boolean trailer;
 
-    }
+    private final int seats;
+
+    private final String model;
+
+    private final Contact contact;
+
+    private final String[] statuses;
+
 
     public JsonCar(boolean trailer, int seats, String model, Contact contact, String[] statuses) {
         this.trailer = trailer;
@@ -26,6 +21,26 @@ public class JsonCar {
         this.model = model;
         this.contact = contact;
         this.statuses = statuses;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public boolean isTrailer() {
+        return trailer;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getStatuses() {
+        return statuses;
     }
 
     @Override
