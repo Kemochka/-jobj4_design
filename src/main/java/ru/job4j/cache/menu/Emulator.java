@@ -4,14 +4,14 @@ import ru.job4j.cache.DirFileCache;
 import java.util.Scanner;
 
 public class Emulator {
-    public static int SET_FILE = 1;
-    public static int LOAD_FILE = 2;
-    public static int GET_FILE = 3;
-    public static final String SELECT = "Выберите меню";
-    public static final String CACHE_DIR = "Введите кэшируемую директорию";
-    public static final String LOAD = "Загрузить содержимое файла ... в кэш";
-    public static final String GET = "Получить содержимое файла ... из кэша";
-    public static final String MENU = """
+    private static final int SET_FILE = 1;
+    private static final int LOAD_FILE = 2;
+    private static final int GET_FILE = 3;
+    private static final String SELECT = "Выберите меню";
+    private static final String CACHE_DIR = "Введите кэшируемую директорию";
+    private static final String LOAD = "Загрузить содержимое файла ... в кэш";
+    private static final String GET = "Получить содержимое файла ... из кэша";
+    private static final String MENU = """
             Введите 1, чтобы указать файл для кэширования.
             Введите 2, чтобы загрузить содержимое файла в кэш.
             Введите 3, чтобы получить содержимое файла из кэша.\s
