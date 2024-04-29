@@ -11,7 +11,7 @@ public class Fool {
         var startAt = 1;
         var input = new Scanner(System.in);
         while (startAt < 100) {
-            checkNum(startAt);
+            System.out.println(calculateAnswer(startAt));
             startAt++;
             var answer = input.nextLine();
             startAt = getAnswer(startAt, answer);
@@ -19,7 +19,7 @@ public class Fool {
         }
     }
 
-    private static int getAnswer(int startAt, String answer) {
+    public static int getAnswer(int startAt, String answer) {
         String expectedAnswer = calculateAnswer(startAt);
             if (!expectedAnswer.equals(answer)) {
                 System.out.println("Ошибка. Начинай снова.");
@@ -28,11 +28,7 @@ public class Fool {
         return startAt;
     }
 
-    private static void checkNum(int startAt) {
-        System.out.println(calculateAnswer(startAt));
-    }
-
-    private static String calculateAnswer(int num) {
+    public static String calculateAnswer(int num) {
         if (num % 3 == 0 && num % 5 == 0) {
             return FIZZBUSS;
         } else if (num % 3 == 0) {
