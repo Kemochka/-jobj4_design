@@ -13,7 +13,7 @@ class StringGeneratorTest {
     public void whenGenerateIsTrue() {
         String template = "I am a ${name}, Who are ${subject}?";
         Map<String, String> args = new HashMap<>();
-        args.put("name" ,"Ivan");
+        args.put("name", "Ivan");
         args.put("subject", "you");
         StringGenerator generator = new StringGenerator();
         String result = generator.produce(template, args);
