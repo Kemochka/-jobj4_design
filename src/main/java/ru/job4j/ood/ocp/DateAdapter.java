@@ -17,7 +17,7 @@ public class DateAdapter extends XmlAdapter<String, Calendar> {
     }
 
     @Override
-    public String marshal(Calendar calendar){
+    public String marshal(Calendar calendar) {
         return DATE_FORMAT.get().format(calendar.getTime());
     }
 }
