@@ -19,6 +19,7 @@ public class XMLReport implements Report {
     public XMLReport(Store store) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(Employees.class);
         this.marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         this.store = store;
     }
 
@@ -35,21 +36,20 @@ public class XMLReport implements Report {
 
     @XmlRootElement(name = "employees")
     public static class Employees {
-        private List<Employee> employeeList;
+        private List<Employee> employees;
         public Employees() {
-
         }
 
-        public Employees(List<Employee> employeeList) {
-            this.employeeList = employeeList;
+        public Employees(List<Employee> employee) {
+            this.employees = employee;
         }
 
-        public List<Employee> getEmployeeList() {
-            return employeeList;
+        public List<Employee> getEmployee() {
+            return employees;
         }
 
-        public void setEmployeeList(List<Employee> employeeList) {
-            this.employeeList = employeeList;
+        public void setEmployee(List<Employee> employee) {
+            this.employees = employee;
         }
     }
 }
